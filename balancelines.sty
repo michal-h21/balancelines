@@ -23,9 +23,9 @@
   \int_set:Nn\l_tmpa_int{\seq_count:N\l_balancelines_words_seq}
   \typeout{************** width original: \dim_eval:n{\box_wd:N\l_balancelines_textbox_box}, \int_use:N\l_tmpa_int, \fp_eval:n{100/(sqrt(\l_tmpa_int))} }
   \tl_if_empty:nTF{#2}{
-    % \dim_set:Nn\l_balancelines_boxwidth_dim{\fp_to_dim:n{\dim_to_fp:n{\box_wd:N\l_balancelines_textbox_box}/sqrt(\seq_count:N\l_balancelines_words_seq)}}
+    % divide line width by the square root of number of words
     \dim_set:Nn\l_balancelines_boxwidth_dim{\fp_to_dim:n{\dim_to_fp:n{\box_wd:N\l_balancelines_textbox_box}/(sqrt(\int_use:N\l_tmpa_int))}}
-  }{}
+  }{\dim_set:Nn\l_balancelines_boxwidth_dim{\fp_to_dim:n{\dim_to_fp:n{\box_wd:N\l_balancelines_textbox_box}/(#2)}}}
   \typeout{************** width: \dim_use:N\l_balancelines_boxwidth_dim}
   \seq_map_inline:Nn\l_balancelines_words_seq{\typeout{********** \detokenize{##1}}}
 }

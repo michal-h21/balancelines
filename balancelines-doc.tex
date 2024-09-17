@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{balancelines}
+\usepackage{luavlna}
 
 \begin{document}
 
@@ -11,15 +12,15 @@
 
 \bigskip
 
-\large
+\newcommand\mininadpis[1]{\vskip2\baselineskip\par\bgroup\noindent\large\MakeUppercase{\balancelines{#1}}\egroup\par\vskip\baselineskip}
 
+\mininadpis{Urukagina a~jeho reformy}
 
-\noindent
-\balancelines{Tohle je nadpis}
+\mininadpis{Urnamnu a~jeho zákony}
 
-\bigskip
+\mininadpis{Reliéfy}
+\mininadpis{Sklo a~barvy}
+\mininadpis{Porodní báby}
 
-\noindent
-\balancelines{Tady je taky nadpis}
 \end{document}
 
