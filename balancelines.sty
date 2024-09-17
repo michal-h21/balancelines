@@ -1,5 +1,6 @@
 \ProvidesPackage{balancelines}
 \RequirePackage{hyperref}
+\RequirePackage{ragged2e}
 
 
 \AddToHook{cmd/tableofcontents/before}{\let\odfbalancelines\balancelines\def\balancelines#1{#1}}
@@ -20,7 +21,7 @@
   \seq_set_split_keep_spaces:Nnn\l_balancelines_words_seq{~}{#3}
   \hbox_set:Nn \l_balancelines_textbox_box {#3}
   \int_set:Nn\l_tmpa_int{\seq_count:N\l_balancelines_words_seq}
-  \typeout{************** width original: \dim_eval:n{\box_wd:N\l_balancelines_textbox_box}, \int_use:N\l_tmpa_int, \fp_eval:n{sqrt(\int_use:N\l_tmpa_int)} }
+  \typeout{************** width original: \dim_eval:n{\box_wd:N\l_balancelines_textbox_box}, \int_use:N\l_tmpa_int, \fp_eval:n{100/(sqrt(\l_tmpa_int))} }
   \tl_if_empty:nTF{#2}{
     % \dim_set:Nn\l_balancelines_boxwidth_dim{\fp_to_dim:n{\dim_to_fp:n{\box_wd:N\l_balancelines_textbox_box}/sqrt(\seq_count:N\l_balancelines_words_seq)}}
     \dim_set:Nn\l_balancelines_boxwidth_dim{\fp_to_dim:n{\dim_to_fp:n{\box_wd:N\l_balancelines_textbox_box}/(sqrt(\int_use:N\l_tmpa_int))}}
@@ -30,8 +31,9 @@
 }
 
 \DeclareRobustCommand\balancelines[1]{
-  \balancelines_calc_box_width:Nnn\l_balancelines_boxwidth_dim{}{#1}
-  \texorpdfstring{ahoj: \parbox[t]{\l_balancelines_boxwidth_dim}{#1}}{#1}}
+  % we must use \texorpdfstring to prevent issues with hyperref and sections
+  \texorpdfstring{\balancelines_calc_box_width:Nnn\l_balancelines_boxwidth_dim{}{#1}}{}
+  \texorpdfstring{\parbox[t]{\l_balancelines_boxwidth_dim}{\raggedright #1}}{#1}}
 
 \ExplSyntaxOff
 
